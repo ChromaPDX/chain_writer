@@ -11,6 +11,7 @@ function MyApp({ Component, pageProps }) {
           name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
         />
+        <script src="http://code.dappbench.com/browser-solc.min.js" type="text/javascript"></script>
         <title>PERMA</title>
       </Head>
       <body style={{ backgroundColor: "#f7f7f7" }}>
