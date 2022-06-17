@@ -2,15 +2,20 @@
   "name": "tailwind-ts-starter",
   "version": "0.0.1",
   "scripts": {
+
+    "clean:js": "rm -rf node_modules",
+    "clean:sol": "rm -rf build",
+
     "dev:front:js": "next -p 5000",
     "build:front:js": "next build",
     "start:front:js": "next start",
     
     "test:sol": "truffle test",
-    "dev:sol": "truffle develop",
+    "dev:sol": "truffle develop --log",
     "build:sol": "truffle compile",
     
-    "dev:deploy:sol": "truffle migrate --network development"
+    "dev:deploy:sol": "truffle migrate --reset --network development",
+    "ganache:deploy:sol": "truffle migrate --reset --network ganache"
   },
   "dependencies": {
     "@openzeppelin/contracts": "^4.3.2",

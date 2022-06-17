@@ -16,18 +16,6 @@ contract("Factory", async accounts => {
     Factory = await FACTORY.deployed();
   });
 
-  // it("Should use factory to deploy new ERC20 token", async () => {
-  //   ERC20Token = await Factory.deployNewERC20Token(
-  //     "Demo Token",
-  //     "DEMO20",
-  //     18,
-  //     new BN('1'),
-  //   );
-  //   const TokenInstance = await ERC20TOKEN.at(ERC20Token.logs[0].args.tokenAddress);
-  //   const balance = await TokenInstance.balanceOf.call(accounts[0]);
-  //   expect(balance).to.be.a.bignumber.that.equals('1000000000000000000')
-  // });
-
   it("Should use factory to deploy new ERC721 token", async () => {
     ERC721Token = await Factory.deployNewERC721Token(
       "Demo ERC721 Token",

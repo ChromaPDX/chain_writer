@@ -1,8 +1,16 @@
 module.exports = {
+  
+  // Will be available on both server and client
+  publicRuntimeConfig: {
+    
+    staticFolder: '/static',
+  },
+
   reactStrictMode: true, // was there by default
+
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     config.module.rules.push({
-      test: /\.sol$/i,
+      test: /\.txt$/i,
       loader: "raw-loader",
     });
 

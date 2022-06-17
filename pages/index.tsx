@@ -2,10 +2,17 @@ import Head from "next/head";
 import React, { useEffect, useState } from "react";
 import Web3 from 'web3';
 
+import FactoryJson from "../build/contracts/Factory.json";
+import FactoryAddress from "../build/contractAddress.txt";
+import ERC721TokenJson from "../build/contracts/ERC721Token.json";
+// import ERC721TokenAddress from "../build/ERC721TokenAddress.txt";
+
+console.log(FactoryJson.abi, FactoryAddress)
+
 let web3;
 declare var window: any
 
-const Index =  (props: any) => {
+const Index = (props: any) => {
 
   const [body, setBody] = useState('hello web3');
 
@@ -29,113 +36,22 @@ const Index =  (props: any) => {
         // Non-dapp browsers
         console.log("Non-Ethereum browser detected. You should consider trying MetaMask!");
       }
-      // window.BrowserSolc.getVersions(function (soljsonSources, soljsonReleases) {
-      //   // console.log(soljsonReleases['0.6.0'] )
-
-      //   window.BrowserSolc.loadVersion(soljsonReleases['0.4.6'], function (c) {
-      //     console.log('Solc loaded!')
-      //     solc = c;
-      //   })
-
-      // })
 
     })();
   }, []);
 
 
-
   const deploy = async (text: string) => {
 
-    // console.log(solc)
+    var factory = new web3.eth.Contract(FactoryJson.abi, FactoryAddress);
 
-    // var input = {
-    //   language: 'Solidity',
-    //   sources: {
-    //     'test.sol': '////hello world\ncontract x { function f() public { } }',
-    //     // 'foo.sol': text,
-    //     // 'IAsciiArt.sol': iascii,
-    //   },
-    // };
-
-    // let jsonContractSource = JSON.stringify({
-    //   language: 'Solidity',
-    //   sources: {
-    //     'Task': {
-    //       content: 'contract x { function f() public { } }',
-    //     },
-    //   },
-    //   settings: {
-    //     outputSelection: {
-    //       '*': {
-    //         '*': ['abi',"evm.bytecode"]
-    //       },
-    //     },
-    //   },
-    // });
-
-
-    // let result = solc.compile(input);
-    // console.log(result)
-
-    // const ntrfc = JSON.parse(result.contracts.x.interface);
-    // console.log(ntrfc);
-    var factory = new web3.eth.Contract([
-      {
-        "anonymous": false,
-        "inputs": [
-          {
-            "indexed": false,
-            "internalType": "address",
-            "name": "tokenAddress",
-            "type": "address"
-          }
-        ],
-        "name": "ERC721TokenCreated",
-        "type": "event"
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "string",
-            "name": "name",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "symbol",
-            "type": "string"
-          }
-        ],
-        "name": "deployNewERC721Token",
-        "outputs": [
-          {
-            "internalType": "address",
-            "name": "",
-            "type": "address"
-          }
-        ],
-        "stateMutability": "nonpayable",
-        "type": "function"
-      }
-    ], `0xf7fb9B9D6136D8AA533510fCEa5499ddF238bC70`);
-
-    const t = await factory.methods.deployNewERC721Token("Demo ERC721 Token","DEMO721").send({
-      from: web3.currentProvider.selectedAddress
+    const deployedERC721Token = await factory.methods.deployNewERC721Token("Demo ERC721 Token", "DEMO721")
+    .send({
+      from: web3.currentProvider.selectedAddress,
+      gasPrice: '1000000000000',
+      gas: 5000000
     });
-    console.log(t);
-    // factory.methods.deployNewERC721Token().send();
-
-    // myContract.deploy({
-    //   data: result.contracts.x.bytecode,
-    //   arguments: []
-    // })
-    //   .send({
-    //     from: web3.currentProvider.selectedAddress,
-    //     gas: 1000000,
-    //     gasPrice: '20000000000'
-    //   }, (error, transactionHash) => {
-    //     console.log("done?", error, transactionHash);
-    //   })
+    console.log("deployedERC721Token", deployedERC721Token);
 
   }
 
