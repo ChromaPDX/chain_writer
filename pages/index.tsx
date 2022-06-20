@@ -4,10 +4,6 @@ import Web3 from 'web3';
 
 import FactoryJson from "../build/contracts/Factory.json";
 import FactoryAddress from "../build/contractAddress.txt";
-import ERC721TokenJson from "../build/contracts/ERC721Token.json";
-// import ERC721TokenAddress from "../build/ERC721TokenAddress.txt";
-
-console.log(FactoryJson.abi, FactoryAddress)
 
 let web3;
 declare var window: any
@@ -45,14 +41,14 @@ const Index = (props: any) => {
 
     var factory = new web3.eth.Contract(FactoryJson.abi, FactoryAddress);
 
-    const deployedERC721Token = await factory.methods.deployNewERC721Token("Demo ERC721 Token", "DEMO721")
-    .send({
-      from: web3.currentProvider.selectedAddress,
-      gasPrice: '1000000000000',
-      gas: 5000000
-    });
+    const deployedERC721Token = await factory.methods
+      .deployNewERC721Token("Demo ERC721 Token", "DEMO721")
+      .send({
+        from: web3.currentProvider.selectedAddress,
+        gasPrice: '1000000000000',
+        gas: 5000000
+      });
     console.log("deployedERC721Token", deployedERC721Token);
-
   }
 
   return (
