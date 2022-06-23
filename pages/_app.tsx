@@ -1,6 +1,7 @@
 import "../styles/index.css";
 import Head from "next/head";
 import Image from "next/image";
+import Link from 'next/link'
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -11,7 +12,6 @@ function MyApp({ Component, pageProps }) {
           name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
         />
-        <script src="http://code.dappbench.com/browser-solc.min.js" type="text/javascript"></script>
         <title>PERMA</title>
       </Head>
       <body style={{ backgroundColor: "#f7f7f7" }}>
@@ -37,6 +37,12 @@ function MyApp({ Component, pageProps }) {
                 </h2>
               </div>
             </div>
+
+            <Link href="/"><a>Home</a></Link>
+            <Link href="/create-and-list-nft"><a>mint a new nft</a></Link>
+            <Link href="/my-nfts"><a>My NFTs</a></Link>
+            <Link href="/my-listed-nfts"><a>nfts i wish to sell</a></Link>
+
             <div className="grid grid-cols-1 md:grid-cols-3 ml-8 mr-8">
               <div></div>
               <Component {...pageProps} />
